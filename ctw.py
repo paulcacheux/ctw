@@ -1,6 +1,23 @@
 import random
 import sys
 
+def max_predictor(array):
+    assert len(array) != 0
+    index = 0
+    max_value = None
+    for (i, value) in enumerate(array):
+        if max_value is None or value > max_value:
+            max_value = value
+            index = i
+    return index
+
+def random_predictor(array):
+    assert len(array) != 0
+    indexes = list(range(len(array)))
+    res = random.choices(indexes, weights=array)
+    return res[0]
+
+
 class TextConvertData:
     def __init__(self, text):
         words = []
@@ -50,19 +67,16 @@ class Node:
             if c != None:
                 c.pretty_print(depth + 1)
 
-    def predict(self, suffix):
-        current_pred = self.count.index(max(self.count))
-        if len(suffix) == 0:
-            return current_pred
-        else:
+    def predict(self, suffix, predictor):
+        if len(suffix) != 0:
             last = suffix[-1]
             rest = suffix[:-1]
             next_node = self.children[last]
             if next_node != None:
-                return next_node.predict(rest)
-            else:
-                return current_pred
-
+                return next_node.predict(rest, predictor)
+        
+        return predictor(self.count)
+    
 
 def build_ctw(input_bytes, mem_size, N):
     node = Node(N)
@@ -81,11 +95,12 @@ def main_text():
     mem_size = 10
     node = build_ctw(indexes, mem_size, data.max)
     # Node.pretty_print(node)
+    predictor = random_predictor
 
     start_pred = "pri"
     next_words = data.convert_to_indexes(start_pred)
-    for _ in range(20000):
-        next_word = node.predict(next_words)
+    for _ in range(2000):
+        next_word = node.predict(next_words, predictor)
         next_words.append(next_word)
 
     next_words = data.convert_to_text(next_words)
@@ -99,7 +114,7 @@ def main_bits():
 
     next_bits = []
     for _ in range(20):
-        next_bit = node.predict(input_bits + next_bits)
+        next_bit = node.predict(input_bits + next_bits, max_predict)
         next_bits.append(next_bit)
 
     print(next_bits)
