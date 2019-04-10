@@ -1,44 +1,13 @@
 import random
 import sys
+import graphviz
+import markov
 
-def max_predictor(array):
-    assert len(array) != 0
-    index = 0
-    max_value = None
-    for (i, value) in enumerate(array):
-        if max_value is None or value > max_value:
-            max_value = value
-            index = i
-    return index
-
-def random_predictor(array):
-    assert len(array) != 0
-    indexes = list(range(len(array)))
-    res = random.choices(indexes, weights=array)
-    return res[0]
-
-
-class TextConvertData:
-    def __init__(self, text):
-        words = []
-        indexes = []
-        for word in text:
-            try:
-                i = words.index(word)
-                indexes.append(i)
-            except ValueError:
-                indexes.append(len(words))
-                words.append(word)
-        self.words = words
-        self.indexes = indexes
-        self.max = len(indexes)
-
-    def convert_to_indexes(self, text):
-        return [self.words.index(w) for w in text] # exeeption if not in given letters
-
-    def convert_to_text(self, indexes):
-        return "".join(self.words[i] for i in indexes)
-    
+def product(iterator):
+    res = 1
+    for i in iterator:
+        res *= i
+    return res
 
 class Node:
     def __init__(self, N, value=None):
@@ -46,6 +15,9 @@ class Node:
         self.value = value
         self.count = [0] * N
         self.children = [None] * N
+
+    def is_leaf(self):
+        return all(c is None for c in self.children)
 
     def add_suffix(self, suffix, then):
         if len(suffix) == 0:
@@ -62,21 +34,51 @@ class Node:
 
     def pretty_print(self, depth=0):
         tab = "\t" * depth
-        print(tab + "Node(value={}, count={})".format(self.value, self.count))
+        print(tab + "Node(value={}, count={}, pe={}, pw={}, pm={})".format(self.value, self.count, self.pe, self.pw, self.pm))
         for c in self.children:
             if c != None:
                 c.pretty_print(depth + 1)
-
-    def predict(self, suffix, predictor):
-        if len(suffix) != 0:
-            last = suffix[-1]
-            rest = suffix[:-1]
-            next_node = self.children[last]
-            if next_node != None:
-                return next_node.predict(rest, predictor)
-        
-        return predictor(self.count)
     
+    def compute_pe(self):
+        res = product(i + 0.5 for j in range(self.N) for i in range(self.count[j]))
+        M = sum(self.count)
+        for i in range(M):
+            res /= (self.N / 2 + i)
+        self.pe = res
+    
+    def compute_pw(self, beta):
+        if self.is_leaf():
+            self.pw = self.pe
+        else:
+            prod = product(c.pw for c in self.children if c is not None)
+            self.pw = beta * self.pe + (1 - beta) * prod
+    
+    def compute_pm(self, beta):
+        if self.is_leaf():
+            self.pm = self.pe
+        else:
+            prod = product(c.pm for c in self.children if c is not None)
+            inv_beta_prod = (1 - beta) * prod
+            self.pm = max(beta * self.pe, inv_beta_prod)
+
+
+    def compute_proba(self, beta):
+        for c in self.children:
+            if c is not None:
+                c.compute_proba(beta)
+        
+        self.compute_pe()
+        self.compute_pw(beta)
+        self.compute_pm(beta)
+    
+    def prune(self, beta):
+        if self.pm == beta * self.pe:
+            self.children = [None] * self.N
+        else:
+            for c in self.children:
+                if c is not None:
+                    c.prune(beta)
+
 
 def build_ctw(input_bytes, mem_size, N):
     node = Node(N)
@@ -87,38 +89,20 @@ def build_ctw(input_bytes, mem_size, N):
         node.add_suffix(suffix, then)
     return node
 
-def main_text():
-    path = sys.argv[1]
-    text = open(path).read()
-    data = TextConvertData(text)
-    indexes = data.indexes
-    mem_size = 10
-    node = build_ctw(indexes, mem_size, data.max)
-    # Node.pretty_print(node)
-    predictor = random_predictor
-
-    start_pred = "pri"
-    next_words = data.convert_to_indexes(start_pred)
-    for _ in range(2000):
-        next_word = node.predict(next_words, predictor)
-        next_words.append(next_word)
-
-    next_words = data.convert_to_text(next_words)
-    print(next_words)
-
-def main_bits():
-    # input_bits = [0, 1, 2, 3, 2, 1] * 3;
-    input_bits = [random.randrange(4) for _ in range(40)]
-    node = build_ctw(input_bits, 3, 4)
+def main():
+    # input_bits = [0, 1, 2, 3, 2, 1] * 3
+    # input_bits = [random.randrange(4) for _ in range(40)]
+    input_bits = markov.gen_markov(10000)
+    # input_bits = [0, 0] + [1, 1, 0, 0, 1, 0, 1, 0, 1, 0]
+    # input_bits = [0, 0] + [0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1]
+    print(input_bits)
+    node = build_ctw(input_bits, 4, 2)
+    beta = 0.5
+    node.compute_proba(beta)
+    # node.prune(beta)
     Node.pretty_print(node)
-
-    next_bits = []
-    for _ in range(20):
-        next_bit = node.predict(input_bits + next_bits, max_predict)
-        next_bits.append(next_bit)
-
-    print(next_bits)
+    print(graphviz.main_node_to_graphviz(node))
 
 if __name__ == "__main__":
-    main_text()
+    main()
 
