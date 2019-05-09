@@ -1,5 +1,6 @@
 from fractions import Fraction
 import markov
+import graphviz
 
 class Tree:
     def __init__(self, m):
@@ -97,4 +98,6 @@ tree = Tree(m)
 input_bits = markov.gen_markov(100)
 build_tree(tree, input_bits, 3)
 tree.compute_prob(Fraction(1, 2))
-tree.debug_print()
+# tree.debug_print()
+
+print(graphviz.main_node_to_graphviz(tree.top))

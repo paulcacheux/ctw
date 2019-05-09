@@ -10,7 +10,7 @@ class GraphvizDrawer:
         
     def draw_node(self, node):
         name = self.next_name()
-        self.s += '\t{} [label="pe={:.3f} | pw={:.3f} | pm={:.3f} | as={}"];\n'.format(name, float(node.pe), float(node.pw), float(node.pm), node.count)
+        self.s += '\t{} [label="pe={:.3f} | pw={:.3f} | as={}"];\n'.format(name, float(node.pe), float(node.pw), node.count)
         for c in node.children:
             if c is not None:
                 sub_name = self.draw_node(c)
