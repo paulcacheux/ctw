@@ -2,6 +2,7 @@ import random
 import sys
 import graphviz
 import markov
+from fractions import Fraction
 
 def product(iterator):
     res = 1
@@ -40,10 +41,11 @@ class Node:
                 c.pretty_print(depth + 1)
     
     def compute_pe(self):
-        res = product(i + 0.5 for j in range(self.N) for i in range(self.count[j]))
+        res = product(i + Fraction(1, 2) for j in range(self.N) for i in range(self.count[j]))
         M = sum(self.count)
         for i in range(M):
-            res /= (self.N / 2 + i)
+            coeff = Fraction(self.N, 2) + i
+            res /= coeff
         self.pe = res
     
     def compute_pw(self, beta):
@@ -95,12 +97,12 @@ def main():
     input_bits = markov.gen_markov(10000)
     # input_bits = [0, 0] + [1, 1, 0, 0, 1, 0, 1, 0, 1, 0]
     # input_bits = [0, 0] + [0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1]
-    print(input_bits)
+    # print(input_bits)
     node = build_ctw(input_bits, 4, 2)
     beta = 0.5
     node.compute_proba(beta)
     # node.prune(beta)
-    Node.pretty_print(node)
+    # Node.pretty_print(node)
     print(graphviz.main_node_to_graphviz(node))
 
 if __name__ == "__main__":
