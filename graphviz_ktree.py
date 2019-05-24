@@ -11,7 +11,7 @@ class GraphvizDrawer:
     def draw_node(self, node):
         name = self.next_name()
         pe = float(node.pe) if node.pe else 0.0
-        self.s += '\t{} [label="pe={:.3f} | as={}"];\n'.format(name, pe, node.count)
+        self.s += '\t{} [label="{{pe={:.3f} | as={} | bs=\\n{}}}"];\n'.format(name, pe, node.count, str_matrix(node.Bs))
         for c in node.children:
             if c is not None:
                 sub_name = self.draw_node(c)
@@ -20,6 +20,12 @@ class GraphvizDrawer:
         
     def build(self):
         return self.s + "}\n"
+
+def str_matrix(Bs):
+    res = ""
+    for row in Bs:
+        res += str(row) + "\\n"
+    return res
 
 def main_node_to_graphviz(node):
     drawer = GraphvizDrawer()
