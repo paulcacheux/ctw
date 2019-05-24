@@ -18,11 +18,11 @@ def product(iter):
 
 def ij_iterator(kj, m):
     if m == 1:
-        for i in range(1, kj + 1):
+        for i in range(kj):
             yield (i,)
     else:
         for left in ij_iterator(kj, m - 1):
-            for i in range(1, kj + 1):
+            for i in range(kj):
                 yield (*left, i)
 
 class Tree:
@@ -112,7 +112,7 @@ def build_tree(tree, data, D, k):
                     if after is not None:
                         value_node.count[after] += 1
 
-def build_matrix(tree, D, beta):
+def build_matrix(tree, k, D, beta):
     m = tree.m
     depth = D - 1
     for node in tree.get_node_of_depth(depth):
@@ -137,11 +137,12 @@ def build_matrix(tree, D, beta):
         kj = D - depth
         for ijs in ij_iterator(kj, m):
             p = (1 - beta) * product(node.children[j].pms[ijs[j]] for j in range(m))
-            probas.append((p, ijs))
+            probas.append((p, np.array(ijs)))
         probas.sort(key=lambda p:p[0], reverse=True) # sort by proba in desc order
         probas = probas[:k] # we keep only k of them
-        node.Bs = np.array(probas)
-        assert node.Bs.shape == (k, m)
+        node.Bs = np.array(probas[1])
+        node.pms = list(p[0] for p in probas)
+        # assert node.Bs.shape == (k, m)
 
 
 def get_node_in_tree(tree, current_node, depth, value, k):
@@ -162,7 +163,7 @@ def compute_input_proba(tree):
 
 def main():
     m = 3
-    D = 2
+    D = 4
     k = 3
     tree = Tree(m, k)
     #input_bits = markov.gen_markov(10)
@@ -171,7 +172,7 @@ def main():
     build_full_tree(tree, m, D, k)
     build_tree(tree, input_bits, D, k)
     tree.compute_prob()
-    build_matrix(tree, D, 0.5)
+    build_matrix(tree, k, D, 0.5)
     print(graphviz_ktree.main_node_to_graphviz(tree.top))
 
 def test():
