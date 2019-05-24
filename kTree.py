@@ -114,12 +114,12 @@ def build_tree(tree, data, D, k):
 
 def build_matrix(tree, k, D, beta):
     m = tree.m
-    depth = D - 1
+    depth = D
     for node in tree.get_node_of_depth(depth):
         node.pms[0] = node.pe
         node.Bs[0] = np.zeros((1, m))
 
-    depth = D - 2
+    depth = D - 1
     for node in tree.get_node_of_depth(depth):
         left = beta * node.pe
         right = (1 - beta) * product(c.pms[0] for c in node.children)
@@ -131,7 +131,7 @@ def build_matrix(tree, k, D, beta):
             node.pms[1] = right
             node.Bs[1] = np.zeros((1, m))
             node.Bs[0] = np.ones((1, m))
-    for depth in range(3, D):
+    for depth in range(2, D):
         depth = D - depth
         probas = [(beta * node.pe, np.zeros((1, m)))]
         kj = D - depth
