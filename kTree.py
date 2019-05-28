@@ -9,6 +9,7 @@ from fractions import Fraction
 import markov
 import graphviz_ktree
 import numpy as np
+import sys
 
 def product(iter):
     res = 1
@@ -60,7 +61,7 @@ class Node:
         self.Bs = np.zeros((k, m)) - np.ones((k, m))
     
     def __repr__(self):
-        return "Node(depth={}, value={}, context={}, count={}, pe={}, pw={})".format(self.depth, self.value, self.get_context(), self.count, float(self.pe), float(self.pw))
+        return "Node(depth={}, value={}, context={}, count={}, pe={})".format(self.depth, self.value, self.get_context(), self.count, float(self.pe))
     
     def is_leaf(self):
         return len(self.children)==0
@@ -123,29 +124,24 @@ def build_matrix(tree, k, D, beta):
     for node in tree.get_node_of_depth(depth):
         left = beta * node.pe
         right = (1 - beta) * product(c.pms[0] for c in node.children)
-        if left > right:
-            node.pms[0] = left
-            node.Bs[0] = np.zeros((1, m))
-            node.Bs[1] = np.ones((1, m))
-        else:
-            node.pms[1] = right
-            node.Bs[1] = np.zeros((1, m))
-            node.Bs[0] = np.ones((1, m))
-    for depth in range(2, D):
-        depth = D - depth
+        probas = [(left, np.zeros((1, m))), (right, np.ones((1, m)))]
+        probas.sort(key=lambda p:p[0], reverse=True)
+        node.pms[0] = probas[0][0]
+        node.pms[1] = probas[1][0]
+        node.Bs[0] = probas[0][1]
+        node.Bs[1] = probas[1][1]
+    for depth in reversed(range(D - 1)):
         for node in tree.get_node_of_depth(depth):
             probas = [(beta * node.pe, np.zeros((1, m)))]
-            kj = D - depth
+            kj = depth + 1
             for ijs in ij_iterator(kj, m):
                 p = (1 - beta) * product(node.children[j].pms[ijs[j]] for j in range(m))
                 probas.append((p, np.array(ijs)))
             probas.sort(key=lambda p:p[0], reverse=True) # sort by proba in desc order
-            probas = probas[:k] # we keep only k of them
-            for i, p in enumerate(probas):
+            for i, p in enumerate(probas[:k]): # we only keep k of them
                 node.Bs[i] = p[1]
-            node.pms = list(p[0] for p in probas)
+                node.pms[i] = p[0]
             # assert node.Bs.shape == (k, m)
-
 
 def get_node_in_tree(tree, current_node, depth, value, k):
     for c in current_node.children:
