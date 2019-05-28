@@ -1,8 +1,8 @@
 digraph nodes {
 	node [shape=record];
 	name0 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
-	name1 [label="{pe=0.067 | as=[0, 7, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
-	name2 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
+	name1 [label="{pe=0.067 | as=[0, 7, 0] | bs=\n[0. 0. 0.]\n[0. 0. 0.]\n[0. 1. 0.]\n}"];
+	name2 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[1. 1. 1.]\n[0. 0. 0.]\n}"];
 	name3 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[1. 1. 1.]\n[0. 0. 0.]\n[-1. -1. -1.]\n}"];
 	name4 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
 	name3 -> name4 [label=0];
@@ -28,7 +28,7 @@ digraph nodes {
 	name11 -> name14 [label=2];
 	name2 -> name11 [label=2];
 	name1 -> name2 [label=0];
-	name15 [label="{pe=0.077 | as=[0, 6, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
+	name15 [label="{pe=0.077 | as=[0, 6, 0] | bs=\n[0. 0. 0.]\n[1. 1. 1.]\n[0. 0. 0.]\n}"];
 	name16 [label="{pe=0.077 | as=[0, 6, 0] | bs=\n[1. 1. 1.]\n[0. 0. 0.]\n[-1. -1. -1.]\n}"];
 	name17 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
 	name16 -> name17 [label=0];
@@ -54,7 +54,7 @@ digraph nodes {
 	name24 -> name27 [label=2];
 	name15 -> name24 [label=2];
 	name1 -> name15 [label=1];
-	name28 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
+	name28 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[1. 1. 1.]\n[0. 0. 0.]\n}"];
 	name29 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[1. 1. 1.]\n[0. 0. 0.]\n[-1. -1. -1.]\n}"];
 	name30 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
 	name29 -> name30 [label=0];
@@ -81,8 +81,8 @@ digraph nodes {
 	name28 -> name37 [label=2];
 	name1 -> name28 [label=2];
 	name0 -> name1 [label=0];
-	name41 [label="{pe=0.077 | as=[6, 0, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
-	name42 [label="{pe=0.077 | as=[6, 0, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
+	name41 [label="{pe=0.077 | as=[6, 0, 0] | bs=\n[0. 0. 0.]\n[0. 0. 0.]\n[1. 0. 0.]\n}"];
+	name42 [label="{pe=0.077 | as=[6, 0, 0] | bs=\n[0. 0. 0.]\n[1. 1. 1.]\n[0. 0. 0.]\n}"];
 	name43 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[1. 1. 1.]\n[0. 0. 0.]\n[-1. -1. -1.]\n}"];
 	name44 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
 	name43 -> name44 [label=0];
@@ -108,7 +108,7 @@ digraph nodes {
 	name51 -> name54 [label=2];
 	name42 -> name51 [label=2];
 	name41 -> name42 [label=0];
-	name55 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
+	name55 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[1. 1. 1.]\n[0. 0. 0.]\n}"];
 	name56 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[1. 1. 1.]\n[0. 0. 0.]\n[-1. -1. -1.]\n}"];
 	name57 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
 	name56 -> name57 [label=0];
@@ -134,7 +134,7 @@ digraph nodes {
 	name64 -> name67 [label=2];
 	name55 -> name64 [label=2];
 	name41 -> name55 [label=1];
-	name68 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
+	name68 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[1. 1. 1.]\n[0. 0. 0.]\n}"];
 	name69 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[1. 1. 1.]\n[0. 0. 0.]\n[-1. -1. -1.]\n}"];
 	name70 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
 	name69 -> name70 [label=0];
@@ -161,8 +161,8 @@ digraph nodes {
 	name68 -> name77 [label=2];
 	name41 -> name68 [label=2];
 	name0 -> name41 [label=1];
-	name81 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
-	name82 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
+	name81 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[0. 0. 0.]\n[0. 0. 1.]\n}"];
+	name82 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[1. 1. 1.]\n[0. 0. 0.]\n}"];
 	name83 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[1. 1. 1.]\n[0. 0. 0.]\n[-1. -1. -1.]\n}"];
 	name84 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
 	name83 -> name84 [label=0];
@@ -188,7 +188,7 @@ digraph nodes {
 	name91 -> name94 [label=2];
 	name82 -> name91 [label=2];
 	name81 -> name82 [label=0];
-	name95 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
+	name95 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[1. 1. 1.]\n[0. 0. 0.]\n}"];
 	name96 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[1. 1. 1.]\n[0. 0. 0.]\n[-1. -1. -1.]\n}"];
 	name97 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
 	name96 -> name97 [label=0];
@@ -214,7 +214,7 @@ digraph nodes {
 	name104 -> name107 [label=2];
 	name95 -> name104 [label=2];
 	name81 -> name95 [label=1];
-	name108 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[-1. -1. -1.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
+	name108 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[1. 1. 1.]\n[0. 0. 0.]\n}"];
 	name109 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[1. 1. 1.]\n[0. 0. 0.]\n[-1. -1. -1.]\n}"];
 	name110 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
 	name109 -> name110 [label=0];
@@ -231,7 +231,7 @@ digraph nodes {
 	name116 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
 	name113 -> name116 [label=2];
 	name108 -> name113 [label=1];
-	name117 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n0.5\n[0 0 0]\n}"];
+	name117 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[1. 1. 1.]\n[0. 0. 0.]\n[-1. -1. -1.]\n}"];
 	name118 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];
 	name117 -> name118 [label=0];
 	name119 [label="{pe=1.000 | as=[0, 0, 0] | bs=\n[0. 0. 0.]\n[-1. -1. -1.]\n[-1. -1. -1.]\n}"];

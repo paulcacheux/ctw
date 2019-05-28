@@ -133,16 +133,18 @@ def build_matrix(tree, k, D, beta):
             node.Bs[0] = np.ones((1, m))
     for depth in range(2, D):
         depth = D - depth
-        probas = [(beta * node.pe, np.zeros((1, m)))]
-        kj = D - depth
-        for ijs in ij_iterator(kj, m):
-            p = (1 - beta) * product(node.children[j].pms[ijs[j]] for j in range(m))
-            probas.append((p, np.array(ijs)))
-        probas.sort(key=lambda p:p[0], reverse=True) # sort by proba in desc order
-        probas = probas[:k] # we keep only k of them
-        node.Bs = np.array(probas[1])
-        node.pms = list(p[0] for p in probas)
-        # assert node.Bs.shape == (k, m)
+        for node in tree.get_node_of_depth(depth):
+            probas = [(beta * node.pe, np.zeros((1, m)))]
+            kj = D - depth
+            for ijs in ij_iterator(kj, m):
+                p = (1 - beta) * product(node.children[j].pms[ijs[j]] for j in range(m))
+                probas.append((p, np.array(ijs)))
+            probas.sort(key=lambda p:p[0], reverse=True) # sort by proba in desc order
+            probas = probas[:k] # we keep only k of them
+            for i, p in enumerate(probas):
+                node.Bs[i] = p[1]
+            node.pms = list(p[0] for p in probas)
+            # assert node.Bs.shape == (k, m)
 
 
 def get_node_in_tree(tree, current_node, depth, value, k):

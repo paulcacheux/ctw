@@ -31,9 +31,9 @@
 <text text-anchor="middle" x="1792.6909" y="-548.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[0, 7, 0]</text>
 <polyline fill="none" stroke="#000000" points="1751,-541.5 1834.3818,-541.5 "/>
 <text text-anchor="middle" x="1792.6909" y="-526.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="1792.6909" y="-512.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="1792.6909" y="-498.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="1792.6909" y="-484.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
+<text text-anchor="middle" x="1792.6909" y="-512.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="1792.6909" y="-498.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="1792.6909" y="-484.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 1. 0.]</text>
 </g>
 <!-- name0&#45;&gt;name1 -->
 <g id="edge40" class="edge">
@@ -51,9 +51,9 @@
 <text text-anchor="middle" x="4081.6909" y="-548.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[6, 0, 0]</text>
 <polyline fill="none" stroke="#000000" points="4040,-541.5 4123.3818,-541.5 "/>
 <text text-anchor="middle" x="4081.6909" y="-526.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="4081.6909" y="-512.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="4081.6909" y="-498.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="4081.6909" y="-484.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
+<text text-anchor="middle" x="4081.6909" y="-512.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="4081.6909" y="-498.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="4081.6909" y="-484.3" font-family="Times,serif" font-size="14.00" fill="#000000">[1. 0. 0.]</text>
 </g>
 <!-- name0&#45;&gt;name41 -->
 <g id="edge80" class="edge">
@@ -71,9 +71,9 @@
 <text text-anchor="middle" x="6416.6909" y="-548.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[0, 0, 0]</text>
 <polyline fill="none" stroke="#000000" points="6375,-541.5 6458.3818,-541.5 "/>
 <text text-anchor="middle" x="6416.6909" y="-526.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="6416.6909" y="-512.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="6416.6909" y="-498.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="6416.6909" y="-484.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
+<text text-anchor="middle" x="6416.6909" y="-512.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="6416.6909" y="-498.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="6416.6909" y="-484.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 1.]</text>
 </g>
 <!-- name0&#45;&gt;name81 -->
 <g id="edge120" class="edge">
@@ -91,9 +91,9 @@
 <text text-anchor="middle" x="607.6909" y="-389.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[0, 0, 0]</text>
 <polyline fill="none" stroke="#000000" points="566,-382.5 649.3818,-382.5 "/>
 <text text-anchor="middle" x="607.6909" y="-367.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="607.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="607.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="607.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
+<text text-anchor="middle" x="607.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="607.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[1. 1. 1.]</text>
+<text text-anchor="middle" x="607.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
 </g>
 <!-- name1&#45;&gt;name2 -->
 <g id="edge13" class="edge">
@@ -111,9 +111,9 @@
 <text text-anchor="middle" x="1482.6909" y="-389.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[0, 6, 0]</text>
 <polyline fill="none" stroke="#000000" points="1441,-382.5 1524.3818,-382.5 "/>
 <text text-anchor="middle" x="1482.6909" y="-367.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="1482.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="1482.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="1482.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
+<text text-anchor="middle" x="1482.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="1482.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[1. 1. 1.]</text>
+<text text-anchor="middle" x="1482.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
 </g>
 <!-- name1&#45;&gt;name15 -->
 <g id="edge26" class="edge">
@@ -131,9 +131,9 @@
 <text text-anchor="middle" x="2095.6909" y="-389.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[0, 0, 0]</text>
 <polyline fill="none" stroke="#000000" points="2054,-382.5 2137.3818,-382.5 "/>
 <text text-anchor="middle" x="2095.6909" y="-367.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="2095.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="2095.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="2095.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
+<text text-anchor="middle" x="2095.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="2095.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[1. 1. 1.]</text>
+<text text-anchor="middle" x="2095.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
 </g>
 <!-- name1&#45;&gt;name28 -->
 <g id="edge39" class="edge">
@@ -871,9 +871,9 @@
 <text text-anchor="middle" x="3374.6909" y="-389.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[6, 0, 0]</text>
 <polyline fill="none" stroke="#000000" points="3333,-382.5 3416.3818,-382.5 "/>
 <text text-anchor="middle" x="3374.6909" y="-367.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="3374.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="3374.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="3374.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
+<text text-anchor="middle" x="3374.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="3374.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[1. 1. 1.]</text>
+<text text-anchor="middle" x="3374.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
 </g>
 <!-- name41&#45;&gt;name42 -->
 <g id="edge53" class="edge">
@@ -891,9 +891,9 @@
 <text text-anchor="middle" x="4081.6909" y="-389.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[0, 0, 0]</text>
 <polyline fill="none" stroke="#000000" points="4040,-382.5 4123.3818,-382.5 "/>
 <text text-anchor="middle" x="4081.6909" y="-367.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="4081.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="4081.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="4081.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
+<text text-anchor="middle" x="4081.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="4081.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[1. 1. 1.]</text>
+<text text-anchor="middle" x="4081.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
 </g>
 <!-- name41&#45;&gt;name55 -->
 <g id="edge66" class="edge">
@@ -911,9 +911,9 @@
 <text text-anchor="middle" x="4830.6909" y="-389.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[0, 0, 0]</text>
 <polyline fill="none" stroke="#000000" points="4789,-382.5 4872.3818,-382.5 "/>
 <text text-anchor="middle" x="4830.6909" y="-367.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="4830.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="4830.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="4830.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
+<text text-anchor="middle" x="4830.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="4830.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[1. 1. 1.]</text>
+<text text-anchor="middle" x="4830.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
 </g>
 <!-- name41&#45;&gt;name68 -->
 <g id="edge79" class="edge">
@@ -1651,9 +1651,9 @@
 <text text-anchor="middle" x="6037.6909" y="-389.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[0, 0, 0]</text>
 <polyline fill="none" stroke="#000000" points="5996,-382.5 6079.3818,-382.5 "/>
 <text text-anchor="middle" x="6037.6909" y="-367.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="6037.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="6037.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="6037.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
+<text text-anchor="middle" x="6037.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="6037.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[1. 1. 1.]</text>
+<text text-anchor="middle" x="6037.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
 </g>
 <!-- name81&#45;&gt;name82 -->
 <g id="edge93" class="edge">
@@ -1671,9 +1671,9 @@
 <text text-anchor="middle" x="6698.6909" y="-389.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[0, 0, 0]</text>
 <polyline fill="none" stroke="#000000" points="6657,-382.5 6740.3818,-382.5 "/>
 <text text-anchor="middle" x="6698.6909" y="-367.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="6698.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="6698.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="6698.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
+<text text-anchor="middle" x="6698.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="6698.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[1. 1. 1.]</text>
+<text text-anchor="middle" x="6698.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
 </g>
 <!-- name81&#45;&gt;name95 -->
 <g id="edge106" class="edge">
@@ -1691,9 +1691,9 @@
 <text text-anchor="middle" x="7633.6909" y="-389.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[0, 0, 0]</text>
 <polyline fill="none" stroke="#000000" points="7592,-382.5 7675.3818,-382.5 "/>
 <text text-anchor="middle" x="7633.6909" y="-367.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="7633.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="7633.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
-<text text-anchor="middle" x="7633.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
+<text text-anchor="middle" x="7633.6909" y="-353.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="7633.6909" y="-339.3" font-family="Times,serif" font-size="14.00" fill="#000000">[1. 1. 1.]</text>
+<text text-anchor="middle" x="7633.6909" y="-325.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
 </g>
 <!-- name81&#45;&gt;name108 -->
 <g id="edge119" class="edge">
@@ -2225,14 +2225,15 @@
 <!-- name117 -->
 <g id="node118" class="node">
 <title>name117</title>
-<polygon fill="none" stroke="#000000" points="7928,-166.5 7928,-260.5 8011.3818,-260.5 8011.3818,-166.5 7928,-166.5"/>
-<text text-anchor="middle" x="7969.6909" y="-245.3" font-family="Times,serif" font-size="14.00" fill="#000000">pe=1.000</text>
-<polyline fill="none" stroke="#000000" points="7928,-238.5 8011.3818,-238.5 "/>
-<text text-anchor="middle" x="7969.6909" y="-223.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[0, 0, 0]</text>
-<polyline fill="none" stroke="#000000" points="7928,-216.5 8011.3818,-216.5 "/>
-<text text-anchor="middle" x="7969.6909" y="-201.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
-<text text-anchor="middle" x="7969.6909" y="-187.3" font-family="Times,serif" font-size="14.00" fill="#000000">0.5</text>
-<text text-anchor="middle" x="7969.6909" y="-173.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0 0 0]</text>
+<polygon fill="none" stroke="#000000" points="7928,-159.5 7928,-267.5 8011.3818,-267.5 8011.3818,-159.5 7928,-159.5"/>
+<text text-anchor="middle" x="7969.6909" y="-252.3" font-family="Times,serif" font-size="14.00" fill="#000000">pe=1.000</text>
+<polyline fill="none" stroke="#000000" points="7928,-245.5 8011.3818,-245.5 "/>
+<text text-anchor="middle" x="7969.6909" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000"> as=[0, 0, 0]</text>
+<polyline fill="none" stroke="#000000" points="7928,-223.5 8011.3818,-223.5 "/>
+<text text-anchor="middle" x="7969.6909" y="-208.3" font-family="Times,serif" font-size="14.00" fill="#000000"> bs=</text>
+<text text-anchor="middle" x="7969.6909" y="-194.3" font-family="Times,serif" font-size="14.00" fill="#000000">[1. 1. 1.]</text>
+<text text-anchor="middle" x="7969.6909" y="-180.3" font-family="Times,serif" font-size="14.00" fill="#000000">[0. 0. 0.]</text>
+<text text-anchor="middle" x="7969.6909" y="-166.3" font-family="Times,serif" font-size="14.00" fill="#000000">[&#45;1. &#45;1. &#45;1.]</text>
 </g>
 <!-- name108&#45;&gt;name117 -->
 <g id="edge118" class="edge">
@@ -2377,8 +2378,8 @@
 <!-- name117&#45;&gt;name118 -->
 <g id="edge115" class="edge">
 <title>name117&#45;&gt;name118</title>
-<path fill="none" stroke="#000000" d="M7954.8246,-166.2252C7950.1046,-151.2154 7944.8044,-134.3608 7939.7797,-118.3824"/>
-<polygon fill="#000000" stroke="#000000" points="7943.0331,-117.0606 7936.6944,-108.5711 7936.3555,-119.1605 7943.0331,-117.0606"/>
+<path fill="none" stroke="#000000" d="M7952.6236,-159.2259C7948.4804,-146.0506 7944.0129,-131.844 7939.7457,-118.2741"/>
+<polygon fill="#000000" stroke="#000000" points="7943.02,-117.019 7936.6813,-108.5295 7936.3424,-119.1189 7943.02,-117.019"/>
 <text text-anchor="middle" x="7949.1909" y="-129.8" font-family="Times,serif" font-size="14.00" fill="#000000">0</text>
 </g>
 <!-- name119 -->
@@ -2397,8 +2398,8 @@
 <!-- name117&#45;&gt;name119 -->
 <g id="edge116" class="edge">
 <title>name117&#45;&gt;name119</title>
-<path fill="none" stroke="#000000" d="M7984.8545,-166.2252C7989.669,-151.2154 7995.0752,-134.3608 8000.2003,-118.3824"/>
-<polygon fill="#000000" stroke="#000000" points="8003.6258,-119.1623 8003.3474,-108.5711 7996.9603,-117.0242 8003.6258,-119.1623"/>
+<path fill="none" stroke="#000000" d="M7987.0996,-159.2259C7991.3256,-146.0506 7995.8825,-131.844 8000.2351,-118.2741"/>
+<polygon fill="#000000" stroke="#000000" points="8003.6391,-119.1206 8003.3607,-108.5295 7996.9736,-116.9826 8003.6391,-119.1206"/>
 <text text-anchor="middle" x="8000.1909" y="-129.8" font-family="Times,serif" font-size="14.00" fill="#000000">1</text>
 </g>
 <!-- name120 -->
