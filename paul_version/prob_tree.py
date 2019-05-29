@@ -59,9 +59,11 @@ def prune_tree_main(data, m, D, beta):
     top.compute_probas(beta)
     top.prune()
     print(graphviz.main_node_to_graphviz(top))
+    return top
 
 
-path = "../dataprojet2.txt"
-data = Data(path)
+if __name__ == "__main__":
+    path = "../dataprojet2.txt"
+    data = Data(path)
 
-prune_tree_main(data.data, m=data.m, D=9, beta=Fraction(1, 2))
+    prune_tree_main(data.data, m=data.m, D=9, beta=Fraction(1, 2))

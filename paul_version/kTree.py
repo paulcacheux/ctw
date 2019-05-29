@@ -118,12 +118,13 @@ def test():
         print(i)
 
 
-path = "../dataprojet2.txt"
+if __name__ == "__main__":
+    path = "../dataprojet2.txt"
 
-# input_bits = [0, 1, 2, 2, 1, 0]
-# input_bits=[0,1,0,1,1,1,0,1,0,1,0,1,0,1]
+    # input_bits = [0, 1, 2, 2, 1, 0]
+    # input_bits=[0,1,0,1,1,1,0,1,0,1,0,1,0,1]
 
-# input_bits = [2, 0, 1, 0, 2, 1, 1, 0, 2, 0, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 0, 2, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1, 1, 0, 2]
-# input_bits = markov.gen_markov(5000)
-data = Data(path)
-ktree_main(data.data, m=data.m, D=9, k=3, beta=Fraction(1, 2))
+    # input_bits = [2, 0, 1, 0, 2, 1, 1, 0, 2, 0, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 0, 2, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1, 1, 0, 2]
+    # input_bits = markov.gen_markov(5000)
+    data = Data(path)
+    ktree_main(data.data, m=data.m, D=9, k=3, beta=Fraction(1, 2))
