@@ -42,7 +42,6 @@ class Tree:
     def pruning(self):
         for node in self.nodes :
             if float(node.pe*self.beta)==float(node.pm) :
-                print(node)
                 node.delete_descendant(self)
     
     
@@ -134,7 +133,7 @@ def compute_input_proba(tree):
 
 def main(m,D,beta,input_bits):
     tree = Tree(m,beta)
-    print(input_bits)
+    #print(input_bits)
     build_tree(tree, input_bits, D)
     tree.compute_pe()
     tree.compute_pm()
@@ -142,7 +141,7 @@ def main(m,D,beta,input_bits):
    #tree.debug_print()
     print(graphvize.main_node_to_graphviz(tree.top))
  
-#input_bits = markov.gen_markov(50)
+input_bits = markov.gen_markov(10000)
 #input_bits=[0, 1, 1, 0, 2, 0, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 1, 1]
-input_bits=[2, 0, 1, 0, 2, 1, 1, 0, 2, 0, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 0, 2, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1, 1, 0, 2]    
+# input_bits=[2, 0, 1, 0, 2, 1, 1, 0, 2, 0, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 0, 2, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1, 1, 0, 2]    
 main(3,3,Fraction(1,2),input_bits)

@@ -207,6 +207,8 @@ path = "../dataprojet2.txt"
 
 # input_bits = [0, 1, 2, 2, 1, 0]
 # input_bits=[0,1,0,1,1,1,0,1,0,1,0,1,0,1]
+
+input_bits=[2, 0, 1, 0, 2, 1, 1, 0, 2, 0, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 0, 2, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1, 1, 0, 2]    
 # input_bits = markov.gen_markov(5000)
-input_bits = read_input(path)
-main(input_bits, m=5, D=9, k=3, beta=0.5)
+# input_bits = read_input(path)
+main(input_bits, m=3, D=4, k=3, beta=0.5)
