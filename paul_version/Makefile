@@ -1,8 +1,8 @@
-all: ktree
+.PHONY: clean ktree prob_tree
+all: ktree prob_tree
 
 ktree: ktrees.svg
 prob_tree: prune_tree.svg
-
 
 ktrees.svg: ktrees.dot
 	dot ktrees.dot | gvpack -g | dot -o ktrees.svg -Tsvg

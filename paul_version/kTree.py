@@ -39,7 +39,7 @@ class KTreeNode(tree.Node):
         return [
             ("pe", "pe", graphviz.str_fraction),
             ("as", "count", None),
-            ("pms", "pms", None),
+            ("pms", "pms", graphviz.str_fraction_array),
             ("Bs", "Bs", graphviz.str_matrix)
         ]
 
@@ -66,17 +66,15 @@ def build_matrix(node, m, k, D, beta):  # returns the kj
 
         probas = [(beta * node.pe, np.zeros((1, m)))]
         for ijs in ij_iterator(kj, m):
-            p = (1 - beta) * \
-                tree.product(node.children[j].pms[ijs[j] - 1]
-                             for j in range(m))
+            p = 1 - beta
+            for j in range(m):
+                p *= node.children[j].pms[ijs[j] - 1]
             probas.append((p, np.array(ijs)))
         # sort by proba in desc order
         probas.sort(key=lambda p: p[0], reverse=True)
-        kprobas = probas[:k]
-        # print(probas, file=sys.stderr)
-        for i, p in enumerate(kprobas):  # we only keep k of them
-            node.Bs[i] = p[1]
-            node.pms[i] = p[0]
+        for i, (prob, vec) in enumerate(probas[:k]):  # we only keep k of them
+            node.pms[i] = prob
+            node.Bs[i] = vec
         # assert node.Bs.shape == (k, m)
         return min(k, kj + 1)
 
@@ -93,16 +91,20 @@ def extract_tree(node, ki):
         return new_node
 
 
-def main(data, m, D, k, beta):
+def ktree_main(data, m, D, k, beta):
     print("Building full tree", file=sys.stderr)
     top = build_full_tree(m, k, D)
+    # print("Computing empty probas", file=sys.stderr)
+    # top.compute_probas(beta)
+    # print("Building first empty matrix", file=sys.stderr)
+    # build_matrix(top, m, k, D, beta)
     print("Building counts", file=sys.stderr)
     tree.build_counts(top, data, D, None)
     print("Computing probas", file=sys.stderr)
     top.compute_probas(beta)
     print("Building matrix", file=sys.stderr)
     build_matrix(top, m, k, D, beta)
-    # print(graphviz_ktree.main_node_to_graphviz(top))
+    # print(graphviz.main_node_to_graphviz(top))
     for score in range(k):
         print("Extracting tree {}".format(score), file=sys.stderr)
         best_tree = extract_tree(top, score)
@@ -110,7 +112,7 @@ def main(data, m, D, k, beta):
 
 
 def test():
-    kj = 4
+    kj = 1
     m = 3
     for i in ij_iterator(kj, m):
         print(i)
@@ -121,8 +123,7 @@ path = "../dataprojet2.txt"
 # input_bits = [0, 1, 2, 2, 1, 0]
 # input_bits=[0,1,0,1,1,1,0,1,0,1,0,1,0,1]
 
-# input_bits = [2, 0, 1, 0, 2, 1, 1, 0, 2, 0, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-              2, 0, 0, 0, 1, 0, 2, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1, 1, 0, 2]
+# input_bits = [2, 0, 1, 0, 2, 1, 1, 0, 2, 0, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 0, 2, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1, 1, 0, 2]
 # input_bits = markov.gen_markov(5000)
 data = Data(path)
-main(data.data, m=data.m, D=9, k=3, beta=0.5)
+ktree_main(data.data, m=data.m, D=9, k=3, beta=Fraction(1, 2))

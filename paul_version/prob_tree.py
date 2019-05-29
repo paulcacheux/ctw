@@ -2,6 +2,7 @@ import tree
 import graphviz
 import sys
 from data import Data
+from fractions import Fraction
 
 
 class ProbNode(tree.Node):
@@ -50,7 +51,7 @@ class ProbNode(tree.Node):
         ]
 
 
-def main(data, m, D, beta):
+def prune_tree_main(data, m, D, beta):
     top = ProbNode(None, m)
     print("Building tree", file=sys.stderr)
     tree.build_counts(top, data, D, lambda value, m: ProbNode(value, m))
@@ -63,4 +64,4 @@ def main(data, m, D, beta):
 path = "../dataprojet2.txt"
 data = Data(path)
 
-main(data.data, m=data.m, D=9, beta=0.5)
+prune_tree_main(data.data, m=data.m, D=9, beta=Fraction(1, 2))

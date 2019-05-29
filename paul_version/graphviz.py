@@ -31,6 +31,8 @@ class GraphvizDrawer:
     def build(self):
         return self.s + "}\n"
 
+def str_fraction_array(arr):
+    return [str_fraction(elem) for elem in arr]
 
 def str_fraction(f):
     return float(f) if f else 0.0
