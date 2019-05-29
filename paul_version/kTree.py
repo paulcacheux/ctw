@@ -6,11 +6,13 @@ import graphviz_ktree
 import numpy as np
 import sys
 
+
 def product(iter):
-    res = 1
+    res = Fraction(1, 1)
     for elem in iter:
         res *= elem
     return res
+
 
 def ij_iterator(kj, m):
     r = range(1, kj + 1)
@@ -21,7 +23,8 @@ def ij_iterator(kj, m):
         for left in ij_iterator(kj, m - 1):
             for i in r:
                 yield (*left, i)
-    
+
+
 class Node:
     def __init__(self, value, m, k):
         self.m = m
@@ -32,10 +35,10 @@ class Node:
         self.pe = None
         self.pms = [0] * k
         self.Bs = np.zeros((k, m)) - np.ones((k, m))
-    
+
     def __repr__(self):
         return "Node(depth={}, value={}, context={}, count={}, pe={})".format(self.depth, self.value, self.get_context(), self.count, float(self.pe))
-    
+
     def clone_without_children(self):
         node = Node(self.value, self.m, self.k)
         node.count = self.count
@@ -43,41 +46,44 @@ class Node:
         node.pms = self.pms
         node.Bs = self.Bs
         return node
-    
+
     def is_leaf(self):
         return all(c is None for c in self.children)
-    
+
     def get_pe(self):
         Ms = sum(self.count)
         if Ms == 0:
-            return float(Fraction(1, 1))
+            return Fraction(1, 1)
 
         num = 1
         for j in range(self.m):
             for i in range(self.count[j]):
                 num *= Fraction(1, 2) + i
-        
+
         den = 1
         for i in range(Ms):
             den *= Fraction(self.m, 2) + i
-        
+
         res = num / den
-        return float(res)
-    
+        return res
+
     def compute_probas(self, beta):
         for c in self.children:
             if c is not None:
                 c.compute_probas(beta)
         self.pe = self.get_pe()
 
+
 def build_full_tree(m, k, D):
     def build_node(value, m, k, depth_to_go):
         node = Node(value, m, k)
         if depth_to_go != 0:
-            children = list(build_node(i, m, k, depth_to_go - 1) for i in range(m))
+            children = list(build_node(i, m, k, depth_to_go - 1)
+                            for i in range(m))
             node.children = children
         return node
     return build_node(None, m, k, D - 1)
+
 
 def build_counts(top_node, data, D):
     for width in range(1, D+1):
@@ -90,7 +96,8 @@ def build_counts(top_node, data, D):
                 insert_node = insert_node.children[c]
             insert_node.count[value] += 1
 
-def build_matrix(node, m, k, D, beta): # returns the kj
+
+def build_matrix(node, m, k, D, beta):  # returns the kj
     if node.is_leaf():
         node.pms[0] = node.pe
         node.Bs[0] = np.zeros((1, m))
@@ -101,16 +108,19 @@ def build_matrix(node, m, k, D, beta): # returns the kj
 
         probas = [(beta * node.pe, np.zeros((1, m)))]
         for ijs in ij_iterator(kj, m):
-            p = (1 - beta) * product(node.children[j].pms[ijs[j] - 1] for j in range(m))
+            p = (1 - beta) * \
+                product(node.children[j].pms[ijs[j] - 1] for j in range(m))
             probas.append((p, np.array(ijs)))
-        probas.sort(key=lambda p:p[0], reverse=True) # sort by proba in desc order
+        # sort by proba in desc order
+        probas.sort(key=lambda p: p[0], reverse=True)
         kprobas = probas[:k]
         # print(probas, file=sys.stderr)
-        for i, p in enumerate(kprobas): # we only keep k of them
+        for i, p in enumerate(kprobas):  # we only keep k of them
             node.Bs[i] = p[1]
             node.pms[i] = p[0]
         # assert node.Bs.shape == (k, m)
         return min(k, kj + 1)
+
 
 def extract_tree(node, ki):
     row = node.Bs[ki]
@@ -118,9 +128,11 @@ def extract_tree(node, ki):
     if all(elem == 0 for elem in row):
         return new_node
     else:
-        new_children = list(extract_tree(c, int(r) - 1) for c, r in zip(node.children, row))
+        new_children = list(extract_tree(c, int(r) - 1)
+                            for c, r in zip(node.children, row))
         new_node.children = new_children
         return new_node
+
 
 """
 def complex_build_matrix(node, m, k, D, beta): # returns the kj
@@ -157,21 +169,22 @@ def complex_build_matrix(node, m, k, D, beta): # returns the kj
         return min(k, kj + 1)
 """
 
-def main():
-    m = 3
-    D = 5
-    k = 3
-    beta = 0.5
-    # input_bits = [0, 1, 2, 2, 1, 0]
-    # input_bits=[0,1,0,1,1,1,0,1,0,1,0,1,0,1]
-    input_bits = markov.gen_markov(1000)
+
+def main(data, m, D, k, beta):
+    print("Building full tree", file=sys.stderr)
     top = build_full_tree(m, k, D)
+    print("Building counts", file=sys.stderr)
     build_counts(top, input_bits, D)
+    print("Computing probas", file=sys.stderr)
     top.compute_probas(beta)
+    print("Building matrix", file=sys.stderr)
     build_matrix(top, m, k, D, beta)
     # print(graphviz_ktree.main_node_to_graphviz(top))
-    best_tree = extract_tree(top, 2)
-    print(graphviz_ktree.main_node_to_graphviz(best_tree))
+    for score in range(k):
+        print("Extracting tree {}".format(score), file=sys.stderr)
+        best_tree = extract_tree(top, score)
+        print(graphviz_ktree.main_node_to_graphviz(best_tree))
+
 
 def test():
     kj = 4
@@ -179,4 +192,21 @@ def test():
     for i in ij_iterator(kj, m):
         print(i)
 
-main()
+
+def read_input(path):
+    res = []
+    with open(path) as f:
+        for line in f:
+            for c in line:
+                if c.isdigit():
+                    res.append(int(c))
+    return res
+
+
+path = "../dataprojet2.txt"
+
+# input_bits = [0, 1, 2, 2, 1, 0]
+# input_bits=[0,1,0,1,1,1,0,1,0,1,0,1,0,1]
+# input_bits = markov.gen_markov(5000)
+input_bits = read_input(path)
+main(input_bits, m=5, D=9, k=3, beta=0.5)

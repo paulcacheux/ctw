@@ -1,14 +1,12 @@
 all: ktree
 
-ktree: tree.svg
+ktree: trees.svg
 
-tree.svg: tree.dot
-	dot tree.dot -o tree.svg -Tsvg
+trees.svg: trees.dot
+	dot trees.dot | gvpack -g | dot -o trees.svg -Tsvg
 
-tree.dot: kTree.py
-	python3 kTree.py > tree.dot
-
-kTree.py: graphviz_ktree.py
+trees.dot: kTree.py graphviz_ktree.py
+	python3 kTree.py > trees.dot
 
 clean:
-	rm tree.dot tree.svg
+	rm trees.dot trees.svg

@@ -25,7 +25,7 @@ def str_matrix(Bs):
     res = ""
     for row in Bs:
         if all(elem == 0 for elem in row):
-            res += str(list("*" for _ in row))
+            res += "[{}]".format(", ".join(["*"] * len(row)))
         else:
             res += str(row)
         res += "\\n"
