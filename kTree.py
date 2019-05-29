@@ -19,11 +19,11 @@ def product(iter):
 
 def ij_iterator(kj, m):
     if m == 1:
-        for i in range(kj):
+        for i in range(1, kj):
             yield (i,)
     else:
         for left in ij_iterator(kj, m - 1):
-            for i in range(kj):
+            for i in range(1, kj):
                 yield (*left, i)
 
 class Tree:
@@ -74,7 +74,7 @@ class Node:
     def compute_pe(self):
         Ms = sum(self.count)
         if Ms == 0:
-            self.pe = Fraction(1, 1)
+            self.pe = float(Fraction(1, 1))
             return
 
         num = 1
@@ -87,7 +87,7 @@ class Node:
             den *= Fraction(self.m, 2) + i
         
         res = num / den
-        self.pe = res
+        self.pe = float(res)
 
 def build_full_tree(tree, m, D, k):
     for depth in range(0, D):
@@ -108,7 +108,9 @@ def build_tree(tree, data, D, k):
                 after = data[j+i]
 
             for node in tree.get_node_of_depth(depth):
-                if node.get_context() == rest:
+                if depth == 0:
+                    node.count[value] += 1
+                elif node.get_context() == rest:
                     value_node = get_node_in_tree(tree, node, depth, value, k)
                     if after is not None:
                         value_node.count[after] += 1
@@ -133,12 +135,14 @@ def build_matrix(tree, k, D, beta):
     for depth in reversed(range(D - 1)):
         for node in tree.get_node_of_depth(depth):
             probas = [(beta * node.pe, np.zeros((1, m)))]
-            kj = depth + 1
+            kj = min(D - depth + 1, k)
             for ijs in ij_iterator(kj, m):
                 p = (1 - beta) * product(node.children[j].pms[ijs[j]] for j in range(m))
                 probas.append((p, np.array(ijs)))
             probas.sort(key=lambda p:p[0], reverse=True) # sort by proba in desc order
-            for i, p in enumerate(probas[:k]): # we only keep k of them
+            kprobas = probas[:k]
+            # print(probas, file=sys.stderr)
+            for i, p in enumerate(kprobas): # we only keep k of them
                 node.Bs[i] = p[1]
                 node.pms[i] = p[0]
             # assert node.Bs.shape == (k, m)
@@ -161,20 +165,26 @@ def compute_input_proba(tree):
 
 def main():
     m = 3
-    D = 4
+    D = 5
     k = 3
+    beta = 0.05
     tree = Tree(m, k)
-    #input_bits = markov.gen_markov(10)
-    input_bits=[0,1,0,1,0,1,0,1,0,1,0,1,0,1]
+    input_bits = markov.gen_markov(10000)
+    # input_bits=[0,1,0,1,0,1,0,1,0,1,0,1,0,1]
     # print(input_bits)
+    # build_full_tree(tree, m, D, k)
+    # tree.compute_prob()
+    # build_matrix(tree, k, D, beta)
     build_full_tree(tree, m, D, k)
     build_tree(tree, input_bits, D, k)
     tree.compute_prob()
-    build_matrix(tree, k, D, 0.5)
+    build_matrix(tree, k, D, beta)
     print(graphviz_ktree.main_node_to_graphviz(tree.top))
 
 def test():
-    for i in ij_iterator(2, 3):
+    kj = 4
+    m = 3
+    for i in ij_iterator(kj, m):
         print(i)
 
 main()
