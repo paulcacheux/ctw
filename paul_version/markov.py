@@ -4,13 +4,13 @@ class MarkovGen:
     def __init__(self):
         self.trans = {}
         self.trans[(0, 0)] = [0.3,0.6,0.1]
-        self.trans[(0, 1)] = [0,0,1]
+        self.trans[(0, 1)] = [0,1,0]
         self.trans[(1, 0)] = [0.3,0.6,0.1]
-        self.trans[(1, 1)] = [1, 0, 0]
+        self.trans[(1, 1)] = [0, 1, 0]
         self.trans[(0, 2)] = [0.2, 0.7, 0.2]
         self.trans[(2, 0)] = [0.3, 0.4 ,0.3]
         self.trans[(1, 2)] = [0.3, 0.5 ,0.2]
-        self.trans[(2, 1)] = [0 ,0.8 ,0.2]
+        self.trans[(2, 1)] = [0 ,1 ,0]
         self.trans[(2, 2)] = [0.1 ,0 ,0.9]
         self.mem = [0, 0]
     
