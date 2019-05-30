@@ -1,3 +1,5 @@
+import json
+
 class Data:
     def __init__(self, path):
         self.data = read_input(path)
@@ -5,10 +7,13 @@ class Data:
 
 
 def read_input(path):
-    res = []
+    """Utility function that reads a file and returns its json content.
+    Args:
+        path (string): the path of the file.
+    Returns:
+        The content of the file, parsed as json.
+    """
     with open(path) as f:
-        for line in f:
-            for c in line:
-                if c.isdigit():
-                    res.append(int(c))
-    return res
+        data = json.load(f)
+        return data
+    return []

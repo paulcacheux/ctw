@@ -9,7 +9,7 @@ class ProbNode(tree.Node):
     def get_pw(self, beta):
         """
         Returns:
-            int: The Pw probability of this Node, calculated on demand. This value is not stored.
+            Fraction: The Pw probability of this Node, calculated on demand. This value is not stored.
         """
         if self.is_leaf():
             return self.pe
@@ -21,7 +21,7 @@ class ProbNode(tree.Node):
     def get_pm(self, beta):
         """
         Returns:
-            int: The Pm probability of this Node, calculated on demand. This value is not stored.
+            Fraction: The Pm probability of this Node, calculated on demand. This value is not stored.
         """
         if self.is_leaf():
             return self.pe

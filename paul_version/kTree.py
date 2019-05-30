@@ -4,7 +4,6 @@ from fractions import Fraction
 import markov
 import graphviz
 import numpy as np
-import sys
 import tree
 from data import Data
 
@@ -129,23 +128,34 @@ def extract_tree(node, ki):
 
 
 def ktree_main(data, m, D, k, beta):
-    print("Building full tree", file=sys.stderr)
+    """Main function for ktree algorithm.
+    Args:
+        data ([int]): the input data.
+        m (int): the alphabet size.
+        D (int): the depth of the tree, also the size of the context.
+        k (int): the number of trees requested.
+        beta (Fraction): the beta used by some probabilities computations.
+    Returns:
+        [KNodeTree]: returns the full tree and all k best trees
+    """
+    tree.debug("Building full tree")
     top = build_full_tree(m, k, D)
-    # print("Computing empty probas", file=sys.stderr)
-    # top.compute_probas(beta)
-    # print("Building first empty matrix", file=sys.stderr)
-    # build_matrix(top, m, k, D, beta)
-    print("Building counts", file=sys.stderr)
+
+    tree.debug("Building counts")
     tree.build_counts(top, data, D, None)
-    print("Computing probas", file=sys.stderr)
+
+    tree.debug("Computing probas")
     top.compute_probas(beta)
-    print("Building matrix", file=sys.stderr)
+
+    tree.debug("Building matrix")
     build_matrix(top, m, k, D, beta)
-    # print(graphviz.main_node_to_graphviz(top))
+
+    trees = [tree]
     for score in range(k):
-        print("Extracting tree {}".format(score), file=sys.stderr)
-        best_tree = extract_tree(top, score)
-        print(graphviz.main_node_to_graphviz(best_tree))
+        tree.debug("Extracting tree {}".format(score))
+        next_tree = extract_tree(top, score)
+        trees.append(next_tree)
+    return trees
 
 
 if __name__ == "__main__":
@@ -157,4 +167,6 @@ if __name__ == "__main__":
     # input_bits = [2, 0, 1, 0, 2, 1, 1, 0, 2, 0, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 0, 2, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1, 1, 0, 2]
     # input_bits = markov.gen_markov(5000)
     data = Data(path)
-    ktree_main(data.data, m=data.m, D=9, k=3, beta=Fraction(1, 2))
+    trees = ktree_main(data.data, m=data.m, D=9, k=3, beta=Fraction(1, 2))
+    for tree in trees[1:]:
+        print(graphviz.main_node_to_graphviz(tree))

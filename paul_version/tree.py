@@ -1,5 +1,6 @@
 from fractions import Fraction
 import graphviz
+import sys
 
 
 class Node:
@@ -26,7 +27,7 @@ class Node:
     def get_pe(self):
         """
         Returns:
-            int: The Pe probability of this Node, calculated on demand. This value is not stored.
+            Fraction: The Pe probability of this Node, calculated on demand. This value is not stored.
         """
         Ms = sum(self.count)
         if Ms == 0:
@@ -47,7 +48,7 @@ class Node:
     def compute_probas(self, beta):
         """Compute all required probability on this Node. And store those values.
         Args:
-            beta (int): The beta value used in some probabilities.
+            beta (Fraction): The beta value used in some probabilities.
         """
         for c in self.children:
             if c is not None:
@@ -103,3 +104,11 @@ def product(iter):
     for elem in iter:
         res *= elem
     return res
+
+
+def debug(*args):
+    """Utility function to print message to sderr.
+    Args:
+        args (object): the elements to print.
+    """
+    print(*args, file=sys.stderr)
