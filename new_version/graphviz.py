@@ -1,3 +1,5 @@
+import subprocess
+
 class GraphvizDrawer:
     def __init__(self):
         """Constructs a new Drawer.
@@ -43,7 +45,7 @@ class GraphvizDrawer:
             """Build the label according to the node graphviz description"""
             label = "{"
             elems = []
-            for (attr_name, attr, func) in node.graphviz():
+            for (attr_name, attr, func) in node.graphviz_label():
                 value = getattr(node, attr)
                 if func is not None:
                     value = func(value)
@@ -99,3 +101,43 @@ def main_node_to_graphviz(node):
     drawer = GraphvizDrawer()
     drawer.add_tree_node(node)
     return drawer.build()
+
+def multiple_trees_to_html(trees):
+    """Get html page from multiple trees. Requires dot to be installed and in path.
+    Args:
+        trees([Node]): the trees to display.
+    Returns:
+        string: the content of the html page.
+    """
+
+    def dot2svg(dot_content):
+        cmd = ["dot", "-Tsvg"]
+        with subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE) as proc:
+            proc.stdin.write(dot_content.encode())
+            proc.stdin.close()
+            output = proc.stdout.read()
+            return output.decode()
+
+    def remove_header(svg):
+        lines = []
+        in_svg = False
+        for line in svg.split("\n"):
+            if in_svg:
+                lines.append(line + "\n")
+            elif line.lstrip().startswith("<svg"):
+                in_svg = True
+                lines.append(line + "\n")
+        return "".join(lines)
+    
+    html_trees = []
+    for (index, t) in enumerate(trees):
+        dot_content = main_node_to_graphviz(t)
+        svg = remove_header(dot2svg(dot_content))
+        title = "Arbre {}".format(index + 1)
+        html_tree = "<div class=\"tree_box\">\n<h1>{}</h1>\n{}\n</div>\n".format(title, svg)
+        html_trees.append(html_tree)
+    
+    page = """<!doctype html><html lang="fr"><body>{}</body></html>""".format("".join(html_trees))
+    return page
+
+    

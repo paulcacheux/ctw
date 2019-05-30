@@ -55,7 +55,7 @@ class Node:
                 c.compute_probas(beta)
         self.pe = self.get_pe()
 
-    def graphviz(self):
+    def graphviz_label(self):
         """Description of interesting fields of the Node to be used by Graphviz.
         Returns:
             [(string, string, T -> value)]:

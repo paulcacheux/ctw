@@ -52,7 +52,7 @@ class ProbNode(tree.Node):
                 if c is not None:
                     c.prune()
 
-    def graphviz(self):
+    def graphviz_label(self):
         return [
             ("pe", "pe", graphviz.str_fraction),
             ("pw", "pw", graphviz.str_fraction),

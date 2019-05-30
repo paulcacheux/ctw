@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from fractions import Fraction
+import sys
 import markov
 import graphviz
 import numpy as np
@@ -49,7 +50,7 @@ class KTreeNode(tree.Node):
         node.Bs = self.Bs
         return node
 
-    def graphviz(self):
+    def graphviz_label(self):
         return [
             ("pe", "pe", graphviz.str_fraction),
             ("as", "count", None),
@@ -150,7 +151,7 @@ def ktree_main(data, m, D, k, beta):
     tree.debug("Building matrix")
     build_matrix(top, m, k, D, beta)
 
-    trees = [tree]
+    trees = [top]
     for score in range(k):
         tree.debug("Extracting tree {}".format(score))
         next_tree = extract_tree(top, score)
@@ -168,5 +169,9 @@ if __name__ == "__main__":
     # input_bits = markov.gen_markov(5000)
     data = Data(path)
     trees = ktree_main(data.data, m=data.m, D=9, k=3, beta=Fraction(1, 2))
-    for tree in trees[1:]:
-        print(graphviz.main_node_to_graphviz(tree))
+
+    if len(sys.argv) > 1 and sys.argv[1] == "html":
+        print(graphviz.multiple_trees_to_html(trees[1:]))
+    else:
+        for tree in trees[1:]:
+            print(graphviz.main_node_to_graphviz(tree))
