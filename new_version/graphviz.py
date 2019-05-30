@@ -1,4 +1,6 @@
 import subprocess
+import math
+import sys
 
 class GraphvizDrawer:
     def __init__(self):
@@ -105,7 +107,7 @@ def main_node_to_graphviz(node):
 def multiple_trees_to_html(trees):
     """Get html page from multiple trees. Requires dot to be installed and in path.
     Args:
-        trees([Node]): the trees to display.
+        trees ([(Node, Fraction)]): the trees and probabilities to display.
     Returns:
         string: the content of the html page.
     """
@@ -129,15 +131,26 @@ def multiple_trees_to_html(trees):
                 lines.append(line + "\n")
         return "".join(lines)
     
+    def proba_desc(last, pm):
+        if last is None:
+            return "log10(Pm) = {}".format(log10_fraction(pm))
+        else:
+            ratio = last / pm
+            return "Ratio probas = {}".format(float(ratio))
+    
     html_trees = []
-    for (index, t) in enumerate(trees):
+    last_proba = None
+
+    for (index, (t, pm)) in enumerate(trees):
         dot_content = main_node_to_graphviz(t)
         svg = remove_header(dot2svg(dot_content))
-        title = "Arbre {}".format(index + 1)
+        title = "Arbre {}. {}".format(index + 1, proba_desc(last_proba, pm))
         html_tree = "<div class=\"tree_box\">\n<h1>{}</h1>\n{}\n</div>\n".format(title, svg)
         html_trees.append(html_tree)
+        last_proba = pm
     
     page = """<!doctype html><html lang="fr"><body>{}</body></html>""".format("".join(html_trees))
     return page
 
-    
+def log10_fraction(f):
+    return math.log10(f.numerator) - math.log10(f.denominator)

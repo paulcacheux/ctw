@@ -116,16 +116,22 @@ def extract_tree(node, ki):
     Args:
         node (KTreeNode): the top node of the tree.
         ki (int): the 0-based index of the tree requested. 0 <= ki < k
+    Returns:
+        (KNodeTree, Fraction): the ki-best tree and the Pm associated with it
     """
-    row = node.Bs[ki]
-    new_node = node.clone_without_children()
-    if all(elem == 0 for elem in row):
-        return new_node
-    else:
-        new_children = list(extract_tree(c, int(r) - 1)
-                            for c, r in zip(node.children, row))
-        new_node.children = new_children
-        return new_node
+    def inner(node, ki):
+        row = node.Bs[ki]
+        new_node = node.clone_without_children()
+        if all(elem == 0 for elem in row):
+            return new_node
+        else:
+            new_children = list(inner(c, int(r) - 1)
+                                for c, r in zip(node.children, row))
+            new_node.children = new_children
+            return new_node
+    ki_tree = inner(node, ki)
+    pm = ki_tree.pms[ki]
+    return (ki_tree, pm)
 
 
 def ktree_main(data, m, D, k, beta):
@@ -151,12 +157,12 @@ def ktree_main(data, m, D, k, beta):
     tree.debug("Building matrix")
     build_matrix(top, m, k, D, beta)
 
-    trees = [top]
+    trees = []
     for score in range(k):
         tree.debug("Extracting tree {}".format(score))
         next_tree = extract_tree(top, score)
         trees.append(next_tree)
-    return trees
+    return (top, trees)
 
 
 if __name__ == "__main__":
@@ -168,10 +174,10 @@ if __name__ == "__main__":
     # input_bits = [2, 0, 1, 0, 2, 1, 1, 0, 2, 0, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 0, 2, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1, 1, 0, 2]
     # input_bits = markov.gen_markov(5000)
     data = Data(path)
-    trees = ktree_main(data.data, m=data.m, D=9, k=3, beta=Fraction(1, 2))
+    top, trees = ktree_main(data.data, m=data.m, D=9, k=3, beta=Fraction(1, 2))
 
     if len(sys.argv) > 1 and sys.argv[1] == "html":
-        print(graphviz.multiple_trees_to_html(trees[1:]))
+        print(graphviz.multiple_trees_to_html(trees))
     else:
-        for tree in trees[1:]:
+        for tree, _ in trees:
             print(graphviz.main_node_to_graphviz(tree))
