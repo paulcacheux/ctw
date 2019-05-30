@@ -10,6 +10,10 @@ from data import Data
 
 
 def ij_iterator(kj, m):
+    """Utility function that yields all elements of {i | 1 <= i <= kj} ^ m
+    Yields:
+        (int) * m: the current element of the set.
+    """
     r = range(1, kj + 1)
     if m == 1:
         for i in r:
@@ -22,12 +26,23 @@ def ij_iterator(kj, m):
 
 class KTreeNode(tree.Node):
     def __init__(self, value, m, k):
+        """Constructs a KTreeNode to be used in a tree.
+
+        Args:
+            value (int|None): The value to be stored in this node.
+            m (int): the alphabet size.
+            k (int): the number of trees requested.
+        """
         super(KTreeNode, self).__init__(value, m)
         self.k = k
         self.pms = [0] * k
         self.Bs = np.zeros((k, m)) - np.ones((k, m))
 
     def clone_without_children(self):
+        """Clone this node without its children.
+        Returns:
+            KTreeNode: a node with the same value, m, k, count, pe, pms and Bs but without children.
+        """
         node = KTreeNode(self.value, self.m, self.k)
         node.count = self.count
         node.pe = self.pe
@@ -45,6 +60,14 @@ class KTreeNode(tree.Node):
 
 
 def build_full_tree(m, k, D):
+    """Build a new m-ary tree of depth D.
+    Args:
+        m (int): the alphabet size.
+        k (int): the number of trees requested (used for building the nodes).
+        D (int): the depth of the tree.
+    Returns:
+        KTreeNode: the top node of the tree.
+    """
     def build_node(value, m, k, depth_to_go):
         node = KTreeNode(value, m, k)
         if depth_to_go != 0:
@@ -55,7 +78,16 @@ def build_full_tree(m, k, D):
     return build_node(None, m, k, D - 1)
 
 
-def build_matrix(node, m, k, D, beta):  # returns the kj
+def build_matrix(node, m, k, D, beta):
+    """Compute k-tree algorithm matrices for each node of the tree.
+    Args:
+        node (KTreeNode): the top node of the tree.
+        m (int): the alphabet size.
+        k (int): the number of trees requested.
+        D (int): the depth of the tree.
+    Returnes:
+        int: the kj of this node.
+    """
     if node.is_leaf():
         node.pms[0] = node.pe
         node.Bs[0] = np.zeros((1, m))
@@ -80,6 +112,11 @@ def build_matrix(node, m, k, D, beta):  # returns the kj
 
 
 def extract_tree(node, ki):
+    """Extracts the ki best-tree
+    Args:
+        node (KTreeNode): the top node of the tree.
+        ki (int): the 0-based index of the tree requested. 0 <= ki < k
+    """
     row = node.Bs[ki]
     new_node = node.clone_without_children()
     if all(elem == 0 for elem in row):
@@ -109,13 +146,6 @@ def ktree_main(data, m, D, k, beta):
         print("Extracting tree {}".format(score), file=sys.stderr)
         best_tree = extract_tree(top, score)
         print(graphviz.main_node_to_graphviz(best_tree))
-
-
-def test():
-    kj = 1
-    m = 3
-    for i in ij_iterator(kj, m):
-        print(i)
 
 
 if __name__ == "__main__":
