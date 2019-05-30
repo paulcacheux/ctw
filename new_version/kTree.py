@@ -2,7 +2,7 @@
 
 from fractions import Fraction
 import sys
-import markov
+import generators
 import graphviz
 import numpy as np
 import tree
@@ -172,7 +172,7 @@ if __name__ == "__main__":
     # input_bits=[0,1,0,1,1,1,0,1,0,1,0,1,0,1]
 
     # input_bits = [2, 0, 1, 0, 2, 1, 1, 0, 2, 0, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 0, 2, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1, 1, 0, 2]
-    # input_bits = markov.gen_markov(5000)
+    # input_bits = generators.MarkovGen().next_n(5000)
     data = Data(path)
     top, trees = ktree_main(data.data, m=data.m, D=9, k=3, beta=Fraction(1, 2))
 

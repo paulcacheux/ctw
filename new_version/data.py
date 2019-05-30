@@ -1,6 +1,7 @@
 import json
 
 class Data:
+    """Data class to combine the input data and the alphabet size."""
     def __init__(self, path):
         self.data = read_input(path)
         self.m = max(self.data) + 1
