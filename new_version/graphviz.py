@@ -14,30 +14,52 @@ class GraphvizDrawer:
         self.counter += 1
         return "name{}".format(i)
 
-    def draw_node(self, node):
+    def add_node(self, name, label):
         """Add a node to the graph.
+        Params:
+            name (string): the name of the node.
+            label (string): the label of the node.
+        """
+        self.s += "\t{} [label=\"{}\"];\n".format(name, label)
+    
+    def add_edge(self, node1, node2, label):
+        """Add an edge to the graph.
+        Params:
+            node1 (string): the name of the first node.
+            node2 (string): the name of the second node.
+            label (string): the label of the edge.
+        """
+        self.s += "\t{} -> {} [label={}];\n".format(node1, node2, label)
+
+    def add_tree_node(self, node):
+        """Add a tree node to the graph.
         Params:
             node (Node): node to add to the graph.
         Returns:
             string: the name of the node added (to build edges).
         """
+
+        def build_label(node):
+            """Build the label according to the node graphviz description"""
+            label = "{"
+            elems = []
+            for (attr_name, attr, func) in node.graphviz():
+                value = getattr(node, attr)
+                if func is not None:
+                    value = func(value)
+                elems.append("{}={}".format(attr_name, value))
+            label += " | ".join(elems)
+            label += "}"
+            return label
+
         name = self.next_name()
-        fmt = "\t{} [label=\"{{".format(name)
-        elems = []
-        for (attr_name, attr, func) in node.graphviz():
-            value = getattr(node, attr)
-            if func is not None:
-                value = func(value)
-            elems.append("{}={}".format(attr_name, value))
-        fmt += " | ".join(elems)
-        fmt += "}}\"];\n"
-        self.s += fmt
+        label = build_label(node)
+        self.add_node(name, label)
 
         for c in node.children:
             if c is not None:
-                sub_name = self.draw_node(c)
-                self.s += "\t{} -> {} [label={}];\n".format(
-                    name, sub_name, c.value)
+                sub_name = self.add_tree_node(c)
+                self.add_edge(name, sub_name, c.value)
         return name
 
     def build(self):
@@ -75,5 +97,5 @@ def main_node_to_graphviz(node):
         string: The graphviz description of the tree.
     """
     drawer = GraphvizDrawer()
-    drawer.draw_node(node)
+    drawer.add_tree_node(node)
     return drawer.build()
