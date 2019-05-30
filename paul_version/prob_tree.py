@@ -62,13 +62,24 @@ class ProbNode(tree.Node):
 
 
 def prune_tree_main(data, m, D, beta):
+    """Main function for MAPT algorithm.
+    Args:
+        data ([int]): the input data.
+        m (int): the alphabet size.
+        D (int): the depth of the tree, also the size of the context.
+        beta (Fraction): the beta used by some probabilities computations.
+    Returns:
+        KTreeNode: the top node of the pruned tree.
+    """
     top = ProbNode(None, m)
-    print("Building tree", file=sys.stderr)
+    tree.debug("Building tree")
     tree.build_counts(top, data, D, lambda value, m: ProbNode(value, m))
-    print("Computing probas", file=sys.stderr)
+
+    tree.debug("Computing probas")
     top.compute_probas(beta)
+
+    tree.debug("Pruning tree")
     top.prune()
-    print(graphviz.main_node_to_graphviz(top))
     return top
 
 
@@ -76,4 +87,5 @@ if __name__ == "__main__":
     path = "../dataprojet2.txt"
     data = Data(path)
 
-    prune_tree_main(data.data, m=data.m, D=9, beta=Fraction(1, 2))
+    top_tree = prune_tree_main(data.data, m=data.m, D=9, beta=Fraction(1, 2))
+    print(graphviz.main_node_to_graphviz(top_tree))
