@@ -30,20 +30,21 @@ class Node:
             Fraction: The Pe probability of this Node, calculated on demand. This value is not stored.
         """
         Ms = sum(self.count)
+        m = self.m
+
         if Ms == 0:
             return Fraction(1, 1)
 
         num = 1
-        for j in range(self.m):
+        for j in range(m):
             for i in range(self.count[j]):
-                num *= Fraction(1, 2) + i
-
+                num *= 2 * i + 1
+    
         den = 1
         for i in range(Ms):
-            den *= Fraction(self.m, 2) + i
+            den *= 2 * i + m
 
-        res = num / den
-        return res
+        return Fraction(num, den)
 
     def compute_probas(self, beta):
         """Compute all required probability on this Node. And store those values.
