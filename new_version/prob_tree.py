@@ -34,10 +34,7 @@ class ProbNode(tree.Node):
             return max(left, right)
 
     def compute_probas(self, beta):
-        for c in self.children:
-            if c is not None:
-                c.compute_probas(beta)
-        self.pe = self.get_pe()
+        super().compute_probas(beta)
         self.pw = self.get_pw(beta)
         self.should_prune = False
         self.pm = self.get_pm(beta)

@@ -33,7 +33,7 @@ class KTreeNode(tree.Node):
             m (int): the alphabet size.
             k (int): the number of trees requested.
         """
-        super(KTreeNode, self).__init__(value, m)
+        super().__init__(value, m)
         self.k = k
         self.pms = [0] * k
         self.Bs = np.zeros((k, m)) - np.ones((k, m))
