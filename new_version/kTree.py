@@ -36,7 +36,7 @@ class KTreeNode(tree.Node):
         super().__init__(value, m)
         self.k = k
         self.pms = [0] * k
-        self.Bs = np.zeros((k, m)) - np.ones((k, m))
+        self.Bs = np.full((k, m), -1)
 
     def clone_without_children(self):
         """Clone this node without its children.
@@ -90,7 +90,7 @@ def build_matrix(node, m, k, D, beta):
     """
     if node.is_leaf():
         node.pms[0] = node.pe
-        node.Bs[0] = np.zeros((1, m))
+        node.Bs[0] = np.zeros((1, m), dtype=np.int64)
         return 1
     else:
         kjs = [build_matrix(c, m, k, D, beta) for c in node.children]
