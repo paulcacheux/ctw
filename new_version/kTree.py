@@ -112,7 +112,7 @@ def build_matrix(node, m, k, D, beta):
 
 
 def extract_tree(node, ki):
-    """Extracts the ki best-tree
+    """Extracts the ki best-tree.
     Args:
         node (KTreeNode): the top node of the tree.
         ki (int): the 0-based index of the tree requested. 0 <= ki < k
@@ -120,6 +120,7 @@ def extract_tree(node, ki):
         (KNodeTree, Fraction): the ki-best tree and the Pm associated with it
     """
     def inner(node, ki):
+        """Extracts the ki best-tree. This function only returns the tree."""
         row = node.Bs[ki]
         new_node = node.clone_without_children()
         if all(elem == 0 for elem in row):
