@@ -4,7 +4,7 @@ import csv
 from fractions import Fraction
 import graphviz
 
-path = "./s&p500/GSPC.csv"
+path = "./input_data/GSPC.csv"
 data = []
 with open(path) as f:
     reader = csv.DictReader(f)
