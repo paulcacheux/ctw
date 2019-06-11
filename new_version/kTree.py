@@ -35,7 +35,7 @@ class KTreeNode(tree.Node):
         """
         super().__init__(value, m)
         self.k = k
-        self.pms = [0] * k
+        self.pms = [Fraction(0) for _ in range(k)]
         self.Bs = np.full((k, m), -1)
 
     def clone_without_children(self):
@@ -44,10 +44,10 @@ class KTreeNode(tree.Node):
             KTreeNode: a node with the same value, m, k, count, pe, pms and Bs but without children.
         """
         node = KTreeNode(self.value, self.m, self.k)
-        node.count = self.count
+        node.count = list(c for c in self.count)
         node.pe = self.pe
-        node.pms = self.pms
-        node.Bs = self.Bs
+        node.pms = list(p for p in self.pms)
+        node.Bs = np.copy(self.Bs)
         return node
 
     def graphviz_label(self):
@@ -85,7 +85,7 @@ def build_matrix(node, m, k, D, beta):
         m (int): the alphabet size.
         k (int): the number of trees requested.
         D (int): the depth of the tree.
-    Returnes:
+    Returns:
         int: the kj of this node.
     """
     if node.is_leaf():
@@ -102,8 +102,10 @@ def build_matrix(node, m, k, D, beta):
             for j in range(m):
                 p *= node.children[j].pms[ijs[j] - 1]
             probas.append((p, np.array(ijs)))
+
         # sort by proba in desc order
         probas.sort(key=lambda p: p[0], reverse=True)
+
         for i, (prob, vec) in enumerate(probas[:k]):  # we only keep k of them
             node.pms[i] = prob
             node.Bs[i] = vec
@@ -175,10 +177,13 @@ if __name__ == "__main__":
     # input_bits = [2, 0, 1, 0, 2, 1, 1, 0, 2, 0, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 0, 2, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1, 1, 0, 2]
     # input_bits = generators.MarkovGen().next_n(5000)
     data = Data(path)
-    top, trees = ktree_main(data.data, m=data.m, D=9, k=3, beta=Fraction(1, 2))
+    D = 8
+    beta = Fraction(1, 2)
+    top, trees = ktree_main(data.data, m=data.m, D=D, k=3, beta=beta)
 
     if len(sys.argv) > 1 and sys.argv[1] == "html":
-        print(graphviz.multiple_trees_to_html(trees))
+        trees_probs = [(t, t.compute_pi_T_x(beta, D)) for t, _ in trees]
+        print(graphviz.multiple_trees_to_html(trees_probs))
     else:
         for tree, _ in trees:
             print(graphviz.main_node_to_graphviz(tree))

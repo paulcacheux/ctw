@@ -1,5 +1,5 @@
 .PHONY: clean_output ktree prob_tree markov_tester
-all: ktree prob_tree markov_tester
+all: ktree prob_tree markov_tester sp500
 
 default_deps: graphviz.py tree.py
 

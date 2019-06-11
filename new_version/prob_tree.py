@@ -6,18 +6,6 @@ from fractions import Fraction
 
 
 class ProbNode(tree.Node):
-    def get_pw(self, beta):
-        """
-        Returns:
-            Fraction: The Pw probability of this Node, calculated on demand. This value is not stored.
-        """
-        if self.is_leaf():
-            return self.pe
-        else:
-            sub = (1 - beta) * \
-                tree.product(c.pw for c in self.children if c is not None)
-            return beta * self.pe + sub
-
     def get_pm(self, beta):
         """
         Returns:
@@ -29,13 +17,12 @@ class ProbNode(tree.Node):
             left = beta * self.pe
             right = (1 - beta) * \
                 tree.product(c.pm for c in self.children if c is not None)
-            if left > right:
+            if left >= right:
                 self.should_prune = True
             return max(left, right)
 
     def compute_probas(self, beta):
         super().compute_probas(beta)
-        self.pw = self.get_pw(beta)
         self.should_prune = False
         self.pm = self.get_pm(beta)
 

@@ -1,6 +1,7 @@
 from fractions import Fraction
 import graphviz
 import sys
+import math
 
 
 class Node:
@@ -16,6 +17,20 @@ class Node:
         self.children = [None] * m
         self.count = [0] * m
         self.pe = None
+        self.pw = None
+
+    def count_leaves_at_depth(self, D, current_depth=1):
+        if current_depth == D:
+            return self.count_leaves()
+        else:
+            res = 0
+            for c in self.children:
+                if c is not None:
+                    res += c.count_leaves_at_depth(D, current_depth + 1)
+            return res
+
+    def count_leaves(self):
+        return sum(1 for n in build_node_iter(self) if n.is_leaf())
 
     def is_leaf(self):
         """
@@ -46,6 +61,17 @@ class Node:
 
         return Fraction(num, den)
 
+    def get_pw(self, beta):
+        """
+        Returns:
+            Fraction: The Pw probability of this Node, calculated on demand. This value is not stored.
+        """
+        if self.is_leaf():
+            return self.pe
+        else:
+            sub = (1 - beta) * product(c.pw for c in self.children if c is not None)
+            return beta * self.pe + sub
+
     def compute_probas(self, beta):
         """Compute all required probability on this Node. And store those values.
         Args:
@@ -55,6 +81,33 @@ class Node:
             if c is not None:
                 c.compute_probas(beta)
         self.pe = self.get_pe()
+        self.pw = self.get_pw(beta)
+
+    def compute_pi_T(self, beta, D):
+        """Compute pi(T) for this top node.
+        Args:
+            beta (Fraction): the beta used by some probabilities computations.
+            D (int): the depth of the tree, also the size of the context.
+        Returns:
+            Fraction: pi(T)
+        """
+        alpha = math.pow(1 - beta, 1 / (self.m - 1))
+        cardT = self.count_leaves()
+        Ld = self.count_leaves_at_depth(D)
+        return Fraction(math.pow(alpha, cardT - 1)) * Fraction(math.pow(beta, cardT - Ld))
+
+    def compute_pi_T_x(self, beta, D):
+        """Compute pi(T|x) for this top node.
+        Args:
+            beta (Fraction): the beta used by some probabilities computations.
+            D (int): the depth of the tree, also the size of the context.
+        Returns:
+            Fraction: pi(T|x)
+        """
+        self.compute_probas(beta)
+        piT = self.compute_pi_T(beta, D)
+        PxT = product(node.pe for node in build_node_iter(self) if node.is_leaf())
+        return PxT * piT / self.pw
 
     def graphviz_label(self):
         """Description of interesting fields of the Node to be used by Graphviz.
@@ -68,6 +121,13 @@ class Node:
             ("pe", "pe", graphviz.str_fraction),
             ("as", "count", None)
         ]
+
+def build_node_iter(top_node):
+    for c in top_node.children:
+        if c is not None:
+            for n in build_node_iter(c):
+                yield n
+    yield top_node
 
 
 def build_counts(top_node, data, D, node_builder):
@@ -113,3 +173,6 @@ def debug(*args):
         args (object): the elements to print.
     """
     print(*args, file=sys.stderr)
+
+def log10_fraction(f):
+    return math.log10(f.numerator) - math.log10(f.denominator)

@@ -1,6 +1,6 @@
 import subprocess
-import math
 import sys
+import tree
 
 class GraphvizDrawer:
     def __init__(self):
@@ -35,10 +35,12 @@ class GraphvizDrawer:
         """
         self.s += "\t{} -> {} [label={}];\n".format(node1, node2, label)
 
-    def add_tree_node(self, node):
+    def add_tree_node(self, node, only_struct):
         """Add a tree node to the graph.
         Params:
             node (Node): node to add to the graph.
+            only_struct (bool): allows to not draw the label of the node.
+                Used to only show the structure of the tree.
         Returns:
             string: the name of the node added (to build edges).
         """
@@ -57,12 +59,12 @@ class GraphvizDrawer:
             return label
 
         name = self.next_name()
-        label = build_label(node)
+        label = build_label(node) if not only_struct else ""
         self.add_node(name, label)
 
         for c in node.children:
             if c is not None:
-                sub_name = self.add_tree_node(c)
+                sub_name = self.add_tree_node(c, only_struct)
                 self.add_edge(name, sub_name, c.value)
         return name
 
@@ -93,21 +95,25 @@ def str_matrix(Bs):
     return res
 
 
-def main_node_to_graphviz(node):
+def main_node_to_graphviz(node, only_struct=False):
     """Get graphviz description of a node tree
     Args:
         node (Node): the top node of the tree.
+        only_struct (bool=False): allows to not draw the label of the node.
+            Used to only show the structure of the tree.
     Returns:
         string: The graphviz description of the tree.
     """
     drawer = GraphvizDrawer()
-    drawer.add_tree_node(node)
+    drawer.add_tree_node(node, only_struct)
     return drawer.build()
 
-def multiple_trees_to_html(trees):
+def multiple_trees_to_html(trees, only_struct=False):
     """Get html page from multiple trees. Requires dot to be installed and in path.
     Args:
         trees ([(Node, Fraction)]): the trees and probabilities to display.
+        only_struct (bool=False): allows to not draw the label of the node.
+            Used to only show the structure of the tree.
     Returns:
         string: the content of the html page.
     """
@@ -131,26 +137,24 @@ def multiple_trees_to_html(trees):
                 lines.append(line + "\n")
         return "".join(lines)
     
-    def proba_desc(last, pm):
-        if last is None:
-            return "log10(Pm) = {}".format(log10_fraction(pm))
+    def proba_desc(best, prob):
+        if best is None:
+            return "pi(T|x) = {}".format(float(prob))
         else:
-            ratio = last / pm
+            ratio = best / prob
             return "Ratio probas = {}".format(float(ratio))
     
     html_trees = []
-    last_proba = None
+    best_proba = None
 
-    for (index, (t, pm)) in enumerate(trees):
-        dot_content = main_node_to_graphviz(t)
+    for (index, (t, prob)) in enumerate(trees):
+        dot_content = main_node_to_graphviz(t, only_struct)
         svg = remove_header(dot2svg(dot_content))
-        title = "Arbre {}. {}".format(index + 1, proba_desc(last_proba, pm))
+        title = "Arbre {}. {}".format(index + 1, proba_desc(best_proba, prob))
         html_tree = "<div class=\"tree_box\">\n<h1>{}</h1>\n{}\n</div>\n".format(title, svg)
         html_trees.append(html_tree)
-        last_proba = pm
+        if best_proba is None:
+            best_proba = prob
     
     page = """<!doctype html><html lang="fr"><body>{}</body></html>""".format("".join(html_trees))
     return page
-
-def log10_fraction(f):
-    return math.log10(f.numerator) - math.log10(f.denominator)

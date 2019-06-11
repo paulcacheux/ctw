@@ -3,6 +3,7 @@ import kTree
 import csv
 from fractions import Fraction
 import graphviz
+import tree
 
 path = "./input_data/GSPC.csv"
 data = []
@@ -34,5 +35,11 @@ for d in diff:
         v = 6
     res.append(v)
 
-tree = prob_tree.prune_tree_main(res, 7, 6, Fraction(1, 2))
-print(graphviz.main_node_to_graphviz(tree))
+alphabet_size = 7
+tree_depth = 6
+beta = Fraction(1, 2)
+
+top = prob_tree.prune_tree_main(res, alphabet_size, tree_depth, beta)
+print(float(top.compute_pi_T_x(beta, tree_depth, top.pw)))
+
+# print(graphviz.main_node_to_graphviz(top))
