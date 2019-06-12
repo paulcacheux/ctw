@@ -1,0 +1,9 @@
+digraph Orga {
+    node [shape=record];
+    Tree [label="{Tree | {pe | pw | pi(T) | pi(T\|x)}}"];
+    ProbTree [label="{ProbTree | {pm | pruning...}}"];
+    kTree [label="{kTree | {k | Pms | Bs}}"];
+
+    Tree -> ProbTree;
+    Tree -> kTree;
+}
