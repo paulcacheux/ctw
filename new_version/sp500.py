@@ -16,7 +16,7 @@ diff = []
 for (a, b) in zip(data, data[1:]):
     diff.append(b / a * 100 - 100)
 
-res = []
+data = []
 for d in diff:
     v = None
     if d <= -5:
@@ -33,13 +33,12 @@ for d in diff:
         v = 5
     elif d > 5:
         v = 6
-    res.append(v)
+    data.append(v)
 
 alphabet_size = 7
 tree_depth = 6
 beta = Fraction(1, 2)
 
-top = prob_tree.prune_tree_main(res, alphabet_size, tree_depth, beta)
+top = prob_tree.prune_tree_main(data, alphabet_size, tree_depth, beta)
 print(float(top.compute_pi_T_x(beta, tree_depth, top.pw)))
-
-# print(graphviz.main_node_to_graphviz(top))
+print(graphviz.main_node_to_graphviz(top))

@@ -142,6 +142,8 @@ def multiple_trees_to_html(trees, only_struct=False):
             return "pi(T|x) = {}".format(float(prob))
         else:
             ratio = best / prob
+            while ratio < 1.0:
+                ratio *= 10
             return "Ratio probas = {}".format(float(ratio))
     
     html_trees = []
@@ -151,10 +153,27 @@ def multiple_trees_to_html(trees, only_struct=False):
         dot_content = main_node_to_graphviz(t, only_struct)
         svg = remove_header(dot2svg(dot_content))
         title = "Arbre {}. {}".format(index + 1, proba_desc(best_proba, prob))
-        html_tree = "<div class=\"tree_box\">\n<h1>{}</h1>\n{}\n</div>\n".format(title, svg)
+        html_tree = "<div class=\"tree_box\">\n<h1>{}</h1>\n<div class=\"tree\">{}</div>\n</div>\n".format(title, svg)
         html_trees.append(html_tree)
         if best_proba is None:
             best_proba = prob
     
-    page = """<!doctype html><html lang="fr"><body>{}</body></html>""".format("".join(html_trees))
+    page = """
+    <!doctype html>
+    <html lang="fr">
+    <head>
+        <style>
+            main {{
+                display: flex;
+            }}
+            .tree {{
+                padding: 3px;
+            }}
+            .tree_box {{
+                margin: 20px;
+            }}
+        </style>
+    </head>
+    <body><main>{}</main></body>
+    </html>""".format("".join(html_trees))
     return page
