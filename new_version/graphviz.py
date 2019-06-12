@@ -142,8 +142,8 @@ def multiple_trees_to_html(trees, only_struct=False):
             return "pi(T|x) = {}".format(float(prob))
         else:
             ratio = best / prob
-            while ratio < 1.0:
-                ratio *= 10
+            #while ratio < 1.0:
+            #    ratio *= 10
             return "Ratio probas = {}".format(float(ratio))
     
     html_trees = []

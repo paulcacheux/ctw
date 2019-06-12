@@ -182,7 +182,8 @@ if __name__ == "__main__":
     top, trees = ktree_main(data.data, m=data.m, D=D, k=3, beta=beta)
 
     if len(sys.argv) > 1 and sys.argv[1] == "html":
-        trees_probs = [(t, t.compute_pi_T_x(beta, D)) for t, _ in trees]
+        pw = top.pw
+        trees_probs = [(t, t.compute_pi_T_x(beta, D, pw)) for t, _ in trees]
         print(graphviz.multiple_trees_to_html(trees_probs, only_struct=True))
     else:
         for tree, _ in trees:

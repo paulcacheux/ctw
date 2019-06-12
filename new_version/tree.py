@@ -20,14 +20,7 @@ class Node:
         self.pw = None
 
     def count_leaves_at_depth(self, D, current_depth=1):
-        if current_depth == D:
-            return self.count_leaves()
-        else:
-            res = 0
-            for c in self.children:
-                if c is not None:
-                    res += c.count_leaves_at_depth(D, current_depth + 1)
-            return res
+        return sum(1 for n in build_node_iter(self, at_depth=D) if n.is_leaf())
 
     def count_leaves(self):
         return sum(1 for n in build_node_iter(self) if n.is_leaf())
@@ -96,7 +89,7 @@ class Node:
         Ld = self.count_leaves_at_depth(D)
         return Fraction(math.pow(alpha, cardT - 1)) * Fraction(math.pow(beta, cardT - Ld))
 
-    def compute_pi_T_x(self, beta, D):
+    def compute_pi_T_x(self, beta, D, prob):
         """Compute pi(T|x) for this top node.
         Args:
             beta (Fraction): the beta used by some probabilities computations.
@@ -104,10 +97,9 @@ class Node:
         Returns:
             Fraction: pi(T|x)
         """
-        self.compute_probas(beta)
         piT = self.compute_pi_T(beta, D)
-        PxT = product(node.pe for node in build_node_iter(self) if node.is_leaf())
-        return PxT * piT / self.pw
+        PxT = product(n.pe for n in build_node_iter(self) if n.is_leaf())
+        return (PxT * piT) / prob
 
     def graphviz_label(self):
         """Description of interesting fields of the Node to be used by Graphviz.
@@ -122,12 +114,20 @@ class Node:
             ("as", "count", None)
         ]
 
-def build_node_iter(top_node):
-    for c in top_node.children:
-        if c is not None:
-            for n in build_node_iter(c):
-                yield n
-    yield top_node
+def build_node_iter(top_node, at_depth=None, current_depth=1):
+    if at_depth is None:
+        for c in top_node.children:
+            if c is not None:
+                for n in build_node_iter(c):
+                    yield n
+        yield top_node
+    elif current_depth == at_depth:
+        yield top_node
+    else:
+        for c in top_node.children:
+            if c is not None:
+                for n in build_node_iter(c, at_depth, current_depth + 1):
+                    yield n
 
 
 def build_counts(top_node, data, D, node_builder):
