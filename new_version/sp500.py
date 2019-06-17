@@ -36,10 +36,10 @@ for d in diff:
     data.append(v)
 
 alphabet_size = 7
-tree_depth = 6
+tree_depth = 9
 beta = Fraction(1, 2)
 
 top = prob_tree.prune_tree_main(data, alphabet_size, tree_depth, beta)
 prob = top.pw
-print(float(top.compute_pi_T_x(beta, tree_depth, prob)))
+# print(float(top.compute_pi_T_x(beta, tree_depth, prob)))
 print(graphviz.main_node_to_graphviz(top))
