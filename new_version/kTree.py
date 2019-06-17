@@ -179,13 +179,13 @@ if __name__ == "__main__":
     # input_bits = generators.MarkovGen().next_n(5000)
     data = Data(path)
     D = 9
-    beta = Fraction(95, 100)
+    beta = Fraction(1, 2)
     top, trees = ktree_main(data.data, m=data.m, D=D, k=3, beta=beta)
 
     if len(sys.argv) > 1 and sys.argv[1] == "html":
         pw = top.pw
         trees_probs = [(t, t.compute_pi_T_x(beta, D, pw)) for t, _ in trees]
-        print(graphviz.multiple_trees_to_html(trees_probs, only_struct=False))
+        print(graphviz.multiple_trees_to_html(trees_probs, only_struct=True))
     else:
         for tree, _ in trees:
             print(graphviz.main_node_to_graphviz(tree))
