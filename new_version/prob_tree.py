@@ -63,7 +63,7 @@ def prune_tree_main(data, m, D, beta):
     top.compute_probas(beta)
 
     tree.debug("Pruning tree")
-    top.prune()
+    # top.prune()
     return top
 
 
@@ -72,4 +72,4 @@ if __name__ == "__main__":
     data = Data(path)
 
     top_tree = prune_tree_main(data.data, m=data.m, D=6, beta=Fraction(1, 2))
-    print(graphviz.main_node_to_graphviz(top_tree))
+    print(graphviz.main_node_to_graphviz(top_tree, only_struct=True))
