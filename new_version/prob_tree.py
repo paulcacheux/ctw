@@ -71,5 +71,5 @@ if __name__ == "__main__":
     path = "../dataprojet2.txt"
     data = Data(path)
 
-    top_tree = prune_tree_main(data.data, m=data.m, D=9, beta=Fraction(1, 2))
+    top_tree = prune_tree_main(data.data, m=data.m, D=6, beta=Fraction(1, 2))
     print(graphviz.main_node_to_graphviz(top_tree))
